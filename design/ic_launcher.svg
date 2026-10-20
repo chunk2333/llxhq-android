@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4A86FF"/>
+      <stop offset="0.55" stop-color="#2F6BFF"/>
+      <stop offset="1" stop-color="#12B8E8"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.22" cy="0.12" r="0.78">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.30"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect x="0" y="0" width="512" height="512" rx="118" fill="url(#bg)"/>
+  <rect x="0" y="0" width="512" height="512" rx="118" fill="url(#glow)"/>
+
+  <!-- 270° 仪表弧，开口朝下 -->
+  <path d="M166.9,343.1 A126,126 0 1 1 345.1,343.1"
+        fill="none" stroke="#FFFFFF" stroke-width="27" stroke-linecap="round"/>
+  <!-- 指针 -->
+  <path d="M256,256 L329.5,182.5"
+        fill="none" stroke="#FFFFFF" stroke-width="21" stroke-linecap="round"/>
+  <!-- 中心点 -->
+  <circle cx="256" cy="256" r="15" fill="#FFFFFF"/>
+</svg>

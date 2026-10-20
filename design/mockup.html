@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #dfe5ee;
+    font-family: "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+    padding: 14px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .phone {
+    width: 360px; height: 800px; border-radius: 26px; overflow: hidden;
+    position: relative; flex: none;
+  }
+  .lg { --bg:#F2F5FA; --card:#FFFFFF; --chip:#F0F3F9; --stroke:#E4EAF3; --text:#0D1522;
+        --text2:#6A7A91; --accent:#2F6BFF; --accent2:#1FC0E8; --soft:#E9EFFF;
+        --good:#10B469; --mid:#2F6BFF; --bad:#F04438; --track:#E9EEF6; --shadow:rgba(15,30,60,.07); }
+  .dk { --bg:#080B11; --card:#131A25; --chip:#1C2532; --stroke:#222E3E; --text:#E8EEF7;
+        --text2:#8496AD; --accent:#6E9BFF; --accent2:#41D8F5; --soft:#1A2438;
+        --good:#31D07C; --mid:#6E9BFF; --bad:#FF5F54; --track:#1E2836; --shadow:rgba(0,0,0,.5); }
+
+  .screen { width: 100%; height: 100%; background: var(--bg); color: var(--text);
+            padding: 14px 16px 0; display: flex; flex-direction: column; }
+  .statusbar { height: 22px; display:flex; justify-content:space-between; align-items:center;
+               font-size: 11px; color: var(--text2); margin-bottom: 6px; }
+  .hdr { display: flex; align-items: center; gap: 11px; }
+  .logo { width: 40px; height: 40px; border-radius: 12px; flex: none;
+          background: linear-gradient(135deg, var(--accent), var(--accent2));
+          display: flex; align-items: center; justify-content: center; }
+  .title { font-size: 19px; font-weight: 700; letter-spacing: .2px; }
+  .sub { font-size: 11px; color: var(--text2); margin-top: 2px; }
+  .iconbtn { width: 40px; height: 40px; border-radius: 50%; background: var(--chip); flex: none;
+             display: flex; align-items: center; justify-content: center; margin-left: auto; }
+
+  .card { background: var(--card); border: 1px solid var(--stroke); border-radius: 20px;
+          box-shadow: 0 2px 8px var(--shadow); margin-top: 12px; }
+  .card.mt14 { margin-top: 14px; }
+
+  .row { display: flex; align-items: center; }
+  .pill { border-radius: 999px; font-size: 11px; padding: 4px 10px; }
+  .pill.soft { background: var(--soft); color: var(--accent); }
+  .pill.good { color: var(--good); background: rgba(16,180,105,.15); border: 1px solid rgba(16,180,105,.32); }
+
+  .lat { padding: 14px 16px 12px; }
+  .lat .lab { font-size: 14px; font-weight: 700; }
+  .gwrap { height: 186px; position: relative; }
+  .gwrap .val { position: absolute; left: 0; right: 0; top: 62px; text-align: center;
+                font-size: 48px; font-weight: 700; letter-spacing: -1px; }
+  .gwrap .unit { position: absolute; left: 0; right: 0; top: 118px; text-align: center;
+                 font-size: 12px; color: var(--text2); }
+  .gwrap .hint { position: absolute; left: 0; right: 0; bottom: 12px; text-align: center;
+                 font-size: 10.5px; color: var(--text2); }
+  .cols { display: flex; margin-top: 2px; }
+  .col { flex: 1; text-align: center; }
+  .col b { font-size: 15px; }
+  .col span { display: block; font-size: 10px; color: var(--text2); margin-top: 1px; }
+  .trend { display: flex; gap: 2.6px; align-items: flex-end; height: 34px; margin-top: 10px; }
+  .trend i { flex: 1; border-radius: 3px; opacity: .82; }
+
+  .entry { display: flex; align-items: center; gap: 6px; margin-top: 10px; padding: 6px 0;
+           font-size: 12px; color: var(--text2); }
+
+  .stats { padding: 16px; }
+  .stats .k { font-size: 12px; color: var(--text2); }
+  .big { font-size: 34px; font-weight: 700; margin-top: 2px; letter-spacing: -.5px; }
+  .sys { font-size: 11px; color: var(--text2); margin-top: 3px; }
+  .divider { height: 1px; background: var(--stroke); margin: 13px 0; }
+  .s3 { display: flex; }
+  .s3 > div { flex: 1; }
+  .s3 b { font-size: 15px; }
+  .s3 span { display: block; font-size: 10px; color: var(--text2); margin-top: 2px; }
+  .pbar { height: 6px; border-radius: 99px; background: var(--chip); margin-top: 14px; overflow: hidden; }
+  .pbar > i { display: block; height: 100%; width: 62%; border-radius: 99px; background: var(--accent); }
+  .phint { font-size: 11px; color: var(--text2); margin-top: 6px; }
+
+  .ctl { padding: 16px; }
+  .ctl .h { font-size: 13px; font-weight: 700; }
+  .linkname { font-size: 13px; margin-top: 9px; }
+  .linkurl { font-size: 10px; color: var(--text2); margin-top: 3px; }
+  .lab2 { font-size: 11px; color: var(--text2); margin-top: 13px; }
+  .chips { display: flex; gap: 7px; margin-top: 8px; }
+  .chips div { flex: 1; height: 40px; border-radius: 12px; display: flex; align-items: center;
+               justify-content: center; font-size: 13px; font-weight: 700;
+               background: var(--chip); color: var(--text2); border: 1px solid var(--stroke); }
+  .chips div.on { background: var(--accent); color: #fff; border-color: transparent; }
+  .chips + .chips { margin-top: 7px; }
+  .strip { display:flex; align-items:center; margin-top:13px; background:var(--chip);
+           border-radius:12px; padding:10px 12px; }
+  .strip span { flex:1; font-size:11px; color:var(--text2); }
+  .strip b { font-size:14px; }
+  .input { height: 46px; border-radius: 14px; background: var(--chip); border: 1px solid var(--stroke);
+           margin-top: 8px; display: flex; align-items: center; padding: 0 14px;
+           font-size: 14px; color: var(--text2); }
+  .btnstart { height: 52px; border-radius: 16px; margin-top: 16px; background: var(--accent);
+              color: #fff; font-size: 16px; font-weight: 700; display: flex;
+              align-items: center; justify-content: center; }
+  .foot { font-size: 10px; color: var(--text2); text-align: center; line-height: 1.7; margin-top: 14px; }
+  .caption { font-size: 12px; color: #4a586e; text-align: center; margin-top: 6px; }
+</style>
+</head>
+<body>
+<div>
+  <div class="phone lg"><div class="screen" id="light"></div></div>
+  <div class="caption">浅色模式</div>
+</div>
+<div>
+  <div class="phone dk"><div class="screen" id="dark"></div></div>
+  <div class="caption">深色模式</div>
+</div>
+
+<script>
+const samples = [21,24,22,26,29,27,25,23,22,24,31,28,26,23,21,25,27,30,26,24,22,23,25,28,26,24,27,25,23,27];
+
+function gauge(p) {
+  const cx = 156, cy = 95, r = 81.5;
+  const start = 135, sweep = 270;
+  const pt = (deg) => {
+    const rad = deg * Math.PI / 180;
+    return [cx + r * Math.cos(rad), cy + r * Math.sin(rad)];
+  };
+  const [x0, y0] = pt(start);
+  const [x1, y1] = pt(start + sweep);
+  const [x2, y2] = pt(start + sweep * p);
+  const large = sweep * p > 180 ? 1 : 0;
+  return `
+  <svg viewBox="0 0 312 186" width="100%" height="186">
+    <path d="M${x0},${y0} A${r},${r} 0 1 1 ${x1},${y1}" fill="none"
+          stroke="var(--track)" stroke-width="9" stroke-linecap="round"/>
+    ${p > 0.01 ? `<path d="M${x0},${y0} A${r},${r} 0 ${large} 1 ${x2},${y2}" fill="none"
+          stroke="var(--good)" stroke-width="9" stroke-linecap="round" opacity="0.35" stroke-width="17"/>` : ''}
+    ${p > 0.01 ? `<path d="M${x0},${y0} A${r},${r} 0 ${large} 1 ${x2},${y2}" fill="none"
+          stroke="var(--good)" stroke-width="9" stroke-linecap="round"/>` : ''}
+    <circle cx="${x2}" cy="${y2}" r="7" fill="var(--good)" opacity=".35"/>
+    <circle cx="${x2}" cy="${y2}" r="3.4" fill="var(--good)"/>
+  </svg>`;
+}
+
+function trend(min, max) {
+  const mx = Math.max(220, Math.max(...samples));
+  return samples.map(v => {
+    const h = Math.max(34 * 0.16, 34 * (v / mx));
+    const c = v <= 60 ? 'var(--good)' : (v <= 150 ? 'var(--mid)' : 'var(--bad)');
+    return `<i style="height:${h.toFixed(1)}px;background:${c}"></i>`;
+  }).join('');
+}
+
+function screen(isDark) {
+  return `
+  <div class="statusbar"><span>20:21</span><span>5G &nbsp; 82%</span></div>
+
+  <div class="hdr">
+    <div class="logo">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <path d="M12,3.6 A8.4,8.4 0 1 1 3.6,12" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M12,12 L16.4,7.6" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="12" cy="12" r="1.6" fill="#fff"/>
+      </svg>
+    </div>
+    <div>
+      <div class="title">流量消耗器</div>
+      <div class="sub">多线程精准消耗 · 实时延迟监测</div>
+    </div>
+    <div class="iconbtn">
+      <svg width="20" height="20" viewBox="0 0 24 24"><path d="M20.2,14.6A8.6,8.6 0 0,1 9.4,3.8A8.6,8.6 0 1,0 20.2,14.6z" fill="var(--text2)"/></svg>
+    </div>
+  </div>
+
+  <div class="card mt14 lat">
+    <div class="row">
+      <div class="lab">实时延迟</div>
+      <div style="width:8px"></div>
+      <div class="pill soft">qq.com</div>
+      <div style="margin-left:auto" class="pill good">流畅</div>
+    </div>
+    <div class="gwrap">
+      ${gauge(0.09)}
+      <div class="val">27</div>
+      <div class="unit">ms</div>
+      <div class="hint">TCP 握手延迟</div>
+    </div>
+    <div class="cols">
+      <div class="col"><b>21ms</b><span>最低</span></div>
+      <div class="col"><b>25ms</b><span>平均</span></div>
+      <div class="col"><b>31ms</b><span>最高</span></div>
+    </div>
+    <div class="trend">${trend()}</div>
+    <div class="entry">
+      <svg width="15" height="15" viewBox="0 0 24 24"><path d="M5.2,16.4h3v4.2h-3z M10.5,11.4h3v9.2h-3z M15.8,6.4h3v14.2h-3z" fill="var(--text2)"/></svg>
+      <span style="flex:1">进入 Ping 测试模块</span>
+      <svg width="15" height="15" viewBox="0 0 24 24"><path d="M9,6 L16,12 L9,18" fill="none" stroke="var(--text2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
+
+  <div class="card stats">
+    <div class="k">本次消耗</div>
+    <div class="big">1.24 GB</div>
+    <div class="sys">系统实测 ↓1.25 GB ↑3.2 MB · 校核偏差 -0.7%</div>
+    <div class="divider"></div>
+    <div class="s3">
+      <div><b>12.8 MB/s</b><span>实时速度</span></div>
+      <div><b>03:12</b><span>运行时长</span></div>
+      <div><b>286</b><span>请求次数</span></div>
+    </div>
+    <div class="strip"><span>累计消耗（自安装以来）</span><b>18.6 GB</b></div>
+    <div class="pbar"><i></i></div>
+    <div class="phint">目标 2.00 GB · 已完成 62%</div>
+  </div>
+
+  <div class="card ctl">
+    <div class="row">
+      <div class="h" style="flex:1">下载链接</div>
+      <div class="pill soft">选择 / 管理</div>
+    </div>
+    <div class="linkname">清华镜像 · Ubuntu ISO（3.8G）</div>
+    <div class="linkurl">https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/…iso</div>
+    <div class="divider"></div>
+    <div class="lab2">并发线程</div>
+    <div class="chips"><div>1</div><div>2</div><div class="on">4</div><div>8</div><div>16</div></div>
+    <div class="chips"><div>32</div><div>64</div><div>128</div><div>256</div><div>512</div></div>
+    <div class="lab2">目标流量（MB，0 为不限）</div>
+    <div class="input">2048</div>
+    <div class="btnstart">停止消耗</div>
+  </div>
+
+  <div class="foot">流量按实际读取字节计数（HTTP 正文 + 报文头），<br>并用系统 TrafficStats 交叉校验，多次请求累加。</div>
+  `;
+}
+
+document.getElementById('light').innerHTML = screen(false);
+document.getElementById('dark').innerHTML = screen(true);
+</script>
+</body>
+</html>

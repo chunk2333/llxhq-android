@@ -1,0 +1,28 @@
+# ---- 构建产物 ----
+build-output/
+app/build/
+*.apk
+*.aab
+
+# ---- 本地构建链（1.2 GB，绝不入库）----
+.build/
+/tmp/
+
+# ---- 签名密钥（含私钥，务必不要提交）----
+keystore/
+*.jks
+*.keystore
+
+# ---- 本机路径配置 ----
+local.properties
+
+# ---- Gradle / IDE ----
+.gradle/
+.idea/
+*.iml
+captures/
+
+# ---- 系统垃圾 ----
+.DS_Store
+Thumbs.db
+desktop.ini

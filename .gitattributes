@@ -1,0 +1,13 @@
+# 统一换行，避免 Windows 检出把 shell 脚本写成 CRLF 后在 macOS/Linux 上跑不起来
+* text=auto eol=lf
+
+*.sh text eol=lf
+*.py text eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+*.png binary
+*.jpg binary
+*.jks binary
+*.keystore binary
+*.apk binary

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #dfe5ee; font-family: "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+    padding: 14px; display: flex; gap: 14px; align-items: flex-start;
+  }
+  .phone { width: 360px; height: 800px; border-radius: 26px; overflow: hidden; flex: none; position: relative; }
+  .lg { --bg:#F2F5FA; --card:#FFFFFF; --chip:#F0F3F9; --stroke:#E4EAF3; --text:#0D1522;
+        --text2:#6A7A91; --accent:#2F6BFF; --soft:#E9EFFF; --shadow:rgba(15,30,60,.07); }
+  .dk { --bg:#080B11; --card:#131A25; --chip:#1C2532; --stroke:#222E3E; --text:#E8EEF7;
+        --text2:#8496AD; --accent:#6E9BFF; --soft:#1A2438; --shadow:rgba(0,0,0,.5); }
+  .screen { width:100%; height:100%; background: var(--bg); color: var(--text);
+            padding: 14px 0 0; display:flex; flex-direction:column; }
+  .statusbar { height:22px; display:flex; justify-content:space-between; align-items:center;
+               font-size:11px; color:var(--text2); padding: 0 16px; margin-bottom: 6px; }
+  .bar { height:56px; display:flex; align-items:center; padding: 0 16px 0 8px; }
+  .iconbtn { width:40px; height:40px; border-radius:50%; background:var(--chip);
+             display:flex; align-items:center; justify-content:center; flex:none; }
+  .bar .t { font-size:17px; font-weight:700; margin-left:10px; }
+  .search { margin: 0 16px; height:44px; border-radius:14px; background:var(--chip);
+            border:1px solid var(--stroke); display:flex; align-items:center; padding:0 14px;
+            font-size:13px; color:var(--text2); }
+  .hint { padding: 10px 16px 0; font-size:11px; color:var(--text2); line-height:1.7; }
+  .card { margin: 12px 16px 0; background:var(--card); border:1px solid var(--stroke);
+          border-radius:20px; padding: 4px 0 6px; }
+  .grp { font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--text2);
+         padding: 12px 14px 6px; }
+  .sep { height:1px; background:var(--stroke); margin: 4px 14px 0; }
+  .item { display:flex; align-items:center; padding: 9px 8px 9px 14px; min-height:58px; }
+  .dot { width:18px; height:18px; border-radius:50%; border:1.6px solid var(--stroke); flex:none; }
+  .dot.on { border:none; background:var(--accent); position:relative; }
+  .dot.on::after { content:''; position:absolute; inset:5px; border-radius:50%; background:var(--card); }
+  .txt { flex:1; margin-left:12px; min-width:0; }
+  .nm { font-size:13px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .ur { font-size:10px; color:var(--text2); margin-top:2px; white-space:nowrap;
+        overflow:hidden; text-overflow:ellipsis; }
+  .del { width:34px; height:34px; border-radius:50%; background:var(--chip); flex:none;
+         display:flex; align-items:center; justify-content:center; }
+  .add { margin-top:auto; background:var(--card); border-radius:20px 20px 0 0;
+         box-shadow: 0 -4px 18px var(--shadow); padding: 14px 16px 16px; }
+  .add .h { font-size:13px; font-weight:700; }
+  .input { height:44px; border-radius:14px; background:var(--chip); border:1px solid var(--stroke);
+           margin-top:10px; display:flex; align-items:center; padding:0 14px;
+           font-size:13px; color:var(--text2); }
+  .btn { height:46px; border-radius:16px; margin-top:10px; background:var(--accent); color:#fff;
+         font-size:14px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+  .caption { font-size:12px; color:#4a586e; text-align:center; margin-top:6px; }
+</style>
+</head>
+<body>
+<div>
+  <div class="phone lg"><div class="screen" id="light"></div></div>
+  <div class="caption">浅色模式 · 节点列表</div>
+</div>
+<div>
+  <div class="phone dk"><div class="screen" id="dark"></div></div>
+  <div class="caption">深色模式 · 节点列表</div>
+</div>
+
+<script>
+const groups = [
+  ["通用大文件", [
+    ["清华镜像 · Ubuntu ISO（3.8G）", "https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/noble/…", true],
+    ["阿里云镜像 · Ubuntu ISO（3.8G）", "https://mirrors.aliyun.com/ubuntu-releases/noble/…"],
+    ["Cachefly 50MB（原版默认节点）", "https://cachefly.cachefly.net/50mb.test"]
+  ]],
+  ["中国移动", [
+    ["咪咕音乐", "https://d.musicapp.migu.cn/upload/fbpt_rsync_apps/local/signed/…"],
+    ["和彩云 1", "https://img.mcloud.139.com/material_prod/material_media/…"],
+    ["咪咕快游 1", "https://plaza.cmgame.com:8443/resource/upload/records/tvapk/…"]
+  ]],
+  ["中国电信", [
+    ["天翼云 1", "https://desk.ctyun.cn/desktop/software/clientsoftware/download/…"],
+    ["天翼云 2", "https://desk.ctyun.cn:8999/desktop-prod/software/android_client/…"]
+  ]],
+  ["中国联通", [
+    ["联通电视", "https://listen.10155.com/listener/womusic-bucket/90115000/…"]
+  ]]
+];
+
+function screen() {
+  let body = '';
+  groups.forEach(([name, items], gi) => {
+    if (gi > 0) body += '<div class="sep"></div>';
+    body += `<div class="grp">${name}</div>`;
+    items.forEach(([nm, ur, on]) => {
+      body += `<div class="item">
+        <div class="dot ${on ? 'on' : ''}"></div>
+        <div class="txt"><div class="nm">${nm}</div><div class="ur">${ur}</div></div>
+        ${on ? '' : ''}
+      </div>`;
+    });
+  });
+
+  return `
+  <div class="statusbar"><span>20:21</span><span>5G &nbsp; 82%</span></div>
+  <div class="bar">
+    <div class="iconbtn">
+      <svg width="20" height="20" viewBox="0 0 24 24"><path d="M15,5 L8,12 L15,19" fill="none"
+        stroke="var(--text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="t">下载链接</div>
+  </div>
+  <div class="search">搜索节点名称或域名</div>
+  <div class="hint">按运营商 / 厂商分组，共 50+ 个内置节点，可在上方搜索。自定义链接保存到本地，重启后仍可用；点击任意一项即可切换。</div>
+  <div class="card">${body}</div>
+  <div class="add">
+    <div class="h">添加自定义链接</div>
+    <div class="input">名称（如：我的节点）</div>
+    <div class="input">下载直链 http(s)://...</div>
+    <div class="btn">添加并选用</div>
+  </div>`;
+}
+
+document.getElementById('light').innerHTML = screen();
+document.getElementById('dark').innerHTML = screen();
+</script>
+</body>
+</html>

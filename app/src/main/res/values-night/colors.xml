@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg">#FF080B11</color>
+    <color name="card">#FF131A25</color>
+    <color name="chip">#FF1C2532</color>
+    <color name="stroke">#FF222E3E</color>
+    <color name="text">#FFE8EEF7</color>
+    <color name="text2">#FF8496AD</color>
+    <color name="accent">#FF6E9BFF</color>
+    <color name="accent2">#FF41D8F5</color>
+    <color name="accent_soft">#FF1A2438</color>
+    <color name="good">#FF31D07C</color>
+    <color name="mid">#FF6E9BFF</color>
+    <color name="bad">#FFFF5F54</color>
+    <color name="on_accent">#FFFFFFFF</color>
+    <color name="gauge_track">#FF1E2836</color>
+    <color name="shadow">#00000000</color>
+</resources>

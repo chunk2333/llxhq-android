@@ -80,9 +80,21 @@
 
 ## 界面预览
 
-`design/preview/ui-preview.png`（首页，浅色 / 深色并排，按真实 dp 参数绘制的设计稿）
-`design/preview/ui-links-preview.png`（链接页，分组标题 + 搜索框）
-`design/ic_launcher.svg` / `design/ic_launcher_round.svg`（矢量图标源文件）
+均为按真实 dp 参数绘制的设计稿，**左侧浅色、右侧深色**并排对比。
+
+**首页**
+
+![首页预览：左侧浅色模式，右侧深色模式](design/preview/ui-preview.png)
+
+**下载链接管理**
+
+![链接页预览：分组节点、搜索框与选中态，左侧浅色右侧深色](design/preview/ui-links-preview.png)
+
+**应用图标**
+
+<img src="design/preview/icon-512.png" width="128" alt="应用图标：蓝青渐变仪表盘">
+
+图标源文件：`design/ic_launcher.svg` / `design/ic_launcher_round.svg`（手写 SVG，经 sharp 渲染为 5 档密度 PNG，另配 adaptive icon 矢量前景）
 
 ---
 

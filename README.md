@@ -1,7 +1,13 @@
 # 流量消耗器 · Android
 
+> **AI 制作声明**
+>
+> 本项目（应用代码、界面设计、构建脚本与本文档）由 AI 协作完成：
+> **DeepSeek-V4.1-Flash** 负责代码与文档生成，**WorkBuddy** 提供智能体运行环境与工具链。
+> 内容由模型自动产出，可能存在疏漏；除静态校验外未做真机实测，使用前请自行评估。
+
 参考 [uu6/llxhq](https://github.com/uu6/llxhq/)（网页版流量消耗器）重写的原生 Android 版本。
-纯 Android Framework 实现，**不依赖 AndroidX / Material**，APK 仅约 190 KB，无任何危险权限。
+纯 Android Framework 实现，**不依赖 AndroidX / Material**，APK 仅约 144 KB，无任何危险权限。
 
 - 包名：`cn.llxhq.consumer`
 - 版本：1.0.0（versionCode 1）
